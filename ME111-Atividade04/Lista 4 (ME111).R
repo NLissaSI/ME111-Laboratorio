@@ -24,15 +24,16 @@ table(cdc$age < 23)
 boxplot(cdc$height)
 boxplot(cdc$height ~ cdc$gender)
 
-Saúde = cdc$genhlth
+Saude = cdc$genhlth
 IMC = (cdc$weight / cdc$height^2) * 703 
-boxplot(IMC ~ Saúde)
+boxplot(IMC ~ Saude)
 
-Gênero = cdc$gender
-boxplot(IMC ~ Gênero)    
+Genero = cdc$gender
+boxplot(IMC ~ Genero)    
 
-Plano_de_saúde = cdc$hlthplan
-boxplot(IMC ~ Plano_de_saúde)
+Plano_de_saude = cdc$hlthplan
+boxplot(IMC ~ Plano_de_saude)
 
 Idade = cdc$age
+
 boxplot(IMC ~ Idade)
