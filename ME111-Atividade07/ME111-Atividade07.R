@@ -72,30 +72,30 @@ summary(ME111Prob5Respostas)
 
 # Linhas (Pés) X Colunas (Mãos)
 table(ME111Prob5Respostas$PeMaior, ME111Prob5Respostas$MaoMaior) 
-Pés_e_Mãos = matrix(c(24,5,3,8,0,4,11,3,7), 
+Pes_e_Maos = matrix(c(24,5,3,8,0,4,11,3,7), 
                     ncol = 3, byrow = TRUE)
-chisq.test(Pés_e_Mãos)
+chisq.test(Pes_e_Maos)
 
 
 #Linhas (Mão que escreve) X Colunas (Pés)
 table(ME111Prob5Respostas$MaoEscreve, ME111Prob5Respostas$PeMaior) 
-MãosD_e_Pés = matrix(c(1,0,2,31,12,19),
+MaosD_e_Pas = matrix(c(1,0,2,31,12,19),
                     ncol = 3, byrow = TRUE)
-chisq.test(MãosD_e_Pés)
+chisq.test(MaosD_e_Pes)
 
 
 # Linhas (Genero) X Colunas (Pés)
 table(ME111Prob5Respostas$Genero, ME111Prob5Respostas$PeMaior) 
-Gênero_e_Pés = matrix(c(10,5,10,22,7,11),
+Genero_e_Pes = matrix(c(10,5,10,22,7,11),
                       ncol=3, byrow = TRUE)
-chisq.test(Gênero_e_Pés)
+chisq.test(Genero_e_Pes)
 
 
 # Linhas (Genero) X Colunas (Mão que escreve)
 table(ME111Prob5Respostas$Genero, ME111Prob5Respostas$MaoEscreve) 
-Gênero_e_MãoD = matrix(c(0,25,3,37),
+Genero_e_MaoD = matrix(c(0,25,3,37),
                        ncol = 2, byrow = TRUE)
-Teste_Ind_4 = chisq.test(Gênero_e_MãoD, correct = FALSE)
-names(chisq.test(Gênero_e_MãoD))
+Teste_Ind_4 = chisq.test(Genero_e_MaoD, correct = FALSE)
+names(chisq.test(Genero_e_MaoD))
 Teste_Ind_4$expected
 Teste_Ind_4$statistic
