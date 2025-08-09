@@ -7,18 +7,18 @@ set.seed()
 
 ## Questão 1
 set.seed(1000) 
-Chá_Primeiro_Acertos_1 = sample(0:10, size = 1000, replace = TRUE)
-hist(Chá_Primeiro_Acertos_1,las = 1, ylab = "Frequência", ylim = c(0,200), col = "lightblue")
+Cha_Primeiro_Acertos_1 = sample(0:10, size = 1000, replace = TRUE)
+hist(Cha_Primeiro_Acertos_1,las = 1, ylab = "Frequência", ylim = c(0,200), col = "lightblue")
 
-table(Chá_Primeiro_Acertos_1)
-barplot(table(Chá_Primeiro_Acertos_1), las = 1, ylab = "Distribuição", xlab = "Chá Primeiro (Acertos)", col = "lightyellow")
+table(Cha_Primeiro_Acertos_1)
+barplot(table(Cha_Primeiro_Acertos_1), las = 1, ylab = "Distribuição", xlab = "Chá Primeiro (Acertos)", col = "lightyellow")
 fisher.test(B, y = NULL)
 
 rhyper(1, 4, 4, 4) # 4 Chá primeiro, 4 Leite primeiro, escolheu 4 xícaras
 set.seed(1)
 Simulação =rhyper(1000, 10, 10, 10)
-Chá_Primeiro_Acertos= table(Simulação)
-barplot(Chá_Primeiro_Acertos, las = 1, 
+Cha_Primeiro_Acertos= table(Simulação)
+barplot(Cha_Primeiro_Acertos, las = 1, 
         ylab = "Distribuição", xlab = "Chá Primeiro (Acertos)", 
         col = "lightyellow")
 
@@ -58,7 +58,8 @@ TesteProm$expected
 
 
 ## Questão 5
-ME111Prob5Respostas # Dados da parte 5 da lista
+library(xlsx)
+ME111Prob5Respostas = read.xlsx("ME111Prob5Respostas.xlsx", sheetIndex = 1) # Dados da parte 5 da lista
 
 table(ME111Prob5Respostas$Genero)
 table(ME111Prob5Respostas$MaoEscreve)
