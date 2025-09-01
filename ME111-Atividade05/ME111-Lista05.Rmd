@@ -1,0 +1,133 @@
+---
+title: "ME111 - Lista 05"
+author: "Nathaly Lissa S. Izawa - 186028"
+date: "04/05/2020 - 1S2020"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+options(scipen=999)  ## desabilita escrever números em notação científica
+```
+
+```{r, echo = FALSE}
+library(readxl)
+sinestesia = read_xlsx("dadosSinestesia.xlsx")
+```
+
+
+## Questões
+
+1. Encontre os seus dados na planilha acima e preencha com seus resultados obtidos. Não é para digitar os números no texto, mas sim usar comandos do `R` para que o texto seja atualizado automaticamente.
+
+    ```{r, echo = FALSE}
+    meuTeste = sinestesia[sinestesia$RA == 186028, ]
+    ```
+    
+  * Tentativa 1: Idade mental `r meuTeste[,3]` anos e tempo `r meuTeste[,2]` segundos
+  * Tentativa 2: Idade mental `r meuTeste[,5]` anos e tempo `r meuTeste[,4]` segundos
+  * Tentativa 3: Idade mental `r meuTeste[,7]` anos e tempo `r meuTeste[,6]` segundos
+  
+
+2. Calcule a média, a mediana, o mínimo, o máximo do tempo para completar os testes usando os dados das suas 3 tentativas.
+
+    ```{r, echo = FALSE}
+    meusTempos =  c(meuTeste$Tempo1, meuTeste$Tempo2, meuTeste$Tempo3) ## selecionar apenas os tempos
+    minhasIdades = c(meuTeste$Idade1, meuTeste$Idade2, meuTeste$Idade3) ## selecionar apenas as idades
+    
+    mediaTempo = mean(meusTempos) ## trocar NA pelo comando para calcular a media
+    medianaTempo = median(meusTempos) ## trocar NA pelo comando para calcular a mediana
+    minimoTempo = min(meusTempos) ## trocar NA pelo comando para calcular o mínimo
+    maximoTempo = max(meusTempos) ## trocar NA pelo comando para calcular o máximo
+    
+    mediaIdade = mean(minhasIdades) ## trocar NA pelo comando para calcular a media
+    medianaIdade = median(minhasIdades) ## trocar NA pelo comando para calcular a mediana
+    minimoIdade = min(minhasIdades) ## trocar NA pelo comando para calcular o mínimo
+    maximoIdade = max(minhasIdades) ## trocar NA pelo comando para calcular o máximo
+    ```
+
+    Dentre as minhas 3 tentativas, o tempo médio para completar o teste é `r mediaTempo` segundos; a mediana é `r medianaTempo`. O menor e o maior tempo foram `r minimoTempo` e `r maximoTempo` segundos, respectivamente. Minha idade mental média é `r mediaIdade` anos.
+
+3. Faça um gráfico usando os dados das suas 3 tentativas. No eixo x, coloque a tentativa, no eixo y, sua idade mental.  A idade mental vai diminuindo com o número de tentativas?
+
+```{r, echo = FALSE, fig.height = 3.5, fig.width = 5}
+barplot(minhasIdades, ylim = c(0,65), names.arg = c(1, 2, 3) , xlab = "Tentativa", ylab = "Idade", col="darkblue")
+```
+
+4. Cada aluno realizou 3 tentativas. Para definir qual o aluno mais rápido, primeiro podemos resumir as medidas das 3 tentativas de cada aluno usando: a mediana, a média, o mínimo ou o máximo. Preencha as frases a seguir. Qual medida para resumir os dados você acha que é a melhor nesse caso e por que?
+
+    ```{r, echo = FALSE}
+    ## Por exemplo, vamos calcular o máximo dos tempos 
+    ## para todos os alunos usando a função 'apply'
+    # As questões estão falando para cada parametro para cada tempo, então seria "usando o minimo dos tempos, qual que foi o menor de todos"
+    
+    tempos = sinestesia[, c("Tempo1", "Tempo2", "Tempo3")]
+    max_tempos = apply(tempos, MARGIN = 1, FUN = max) #Tempo máximo de cada um
+    min_tempos = apply(tempos, MARGIN = 1, FUN = min) #Tempo mínimo de cada um
+    media_tempos = apply(tempos, MARGIN = 1, FUN = mean) #Tempo médio de cada um
+    mediana_tempos = apply(tempos, MARGIN = 1, FUN = median) #Mediana dos Tempos de cada um
+    ```
+    
+    Se usarmos o tempo máximo de cada um, o menor tempo foi `r min(max_tempos)` do aluno RA `r sinestesia$RA[which.min(max_tempos)]`.
+
+    Se usarmos o mínimo, o menor tempo foi `r min(min_tempos)` do aluno com RA `r sinestesia$RA[which.min(min_tempos)]`.
+
+    Se usarmos o média, o menor tempo foi `r min(media_tempos)` do aluno com RA `r sinestesia$RA[which.min(media_tempos)]`.
+
+    Se usarmos o mediana, o menor tempo foi `r min(mediana_tempos)` do aluno com RA `r sinestesia$RA[which.min(mediana_tempos)]`.
+    
+    Acredito que a melhor medida para resumir os dados é a mediana, pois se pegarmos a média, ela mostrará mais ou menos o tempo que poderia gastar para fazer o teste. Já o máximo e o mínimo, só mostram os extremos dos tempos levados.
+
+\vspace{24pt}
+
+5. Escolha uma estatística para resumir os dados de cada aluno (média, mediana, mínimo ou máximo). Usando a estatística escolhida, qual o maior tempo entre todos os alunos? E qual a menor idade mental?
+
+```{r, echo = FALSE}
+idades = sinestesia[, c("Idade1", "Idade2", "Idade3")]
+mediana_idades = apply (idades, MARGIN = 1, FUN = median)
+```
+   
+   Usando a mediana, o maior tempo é `r max(mediana_tempos)` segundos e a menor idade mental de todos os alunos foi de `r min(mediana_idades)` anos.
+
+\vspace{12pt}
+
+Nas questões a seguir, considere apenas a **mediana** dos tempos e das idades das 3 tentativas de cada aluno.
+
+6. Construa dois gráficos: uma para descrever a distribuição das medianas dos tempos e outro para a distribuição das medianas das idades.
+
+```{r, echo = FALSE, fig.height = 3.5, fig.width = 5}
+hist(mediana_tempos, ylim = c(0,20), xlab = "Tempo", ylab = "Distribuição", col = "lightyellow")
+hist(mediana_idades, xlab = "Idade", ylab = "Distribuição", col = "lightgreen")
+```
+
+7. Indique a mediana dos tempos e das idades das **suas** 3 tentativas nos respectivos gráficos usando uma cor diferente.
+
+```{r, echo = FALSE, fig.height = 3.5, fig.width = 5}
+hist(mediana_tempos, ylim = c(0,20), xlab = "Tempo", ylab = "Distribuição", col = "lightyellow")
+abline(v = medianaTempo, col = "red", lwd = 2)
+
+hist(mediana_idades, xlab = "Idade", ylab = "Distribuição", col = "lightgreen")
+abline(v = medianaIdade, col = "red", lwd = 2)
+```
+
+8. Quantos alunos têm tempo de teste maior do que o seu? E quantos têm tempo de teste menor do que o seu?
+
+Há `r length(subset(mediana_tempos, mediana_tempos > 70))` alunos que têm o tempo de teste maior que o meu. E `r length(subset(mediana_tempos, mediana_tempos < 70))` alunos possuem o tempo menor que o meu.
+
+9. Quantos alunos têm idade mental maior do que a sua? E quantos têm idade mental menor que a sua?
+
+Há `r length(subset(mediana_idades, mediana_idades > 43))` alunos que possuem a idade mental maior que a minha. E `r length(subset(mediana_idades, mediana_idades < 43))` alunos têm a idade metal menor que a minha.
+
+10. Se todos os alunos praticarem e melhorarem o tempo em 5 segundos, como isso afetaria a distribuição das medianas dos tempos?
+
+A distribuição em si não é afetada, já que foram todos os alunos que melhoram os tempos, e não algumas pessoas. Então a única diferença significativa no gráfico foi que o eixo em que estão os tempos diminuiu em 5 segundos.
+
+```{r, echo = FALSE, fig.height = 3.5, fig.width = 5}
+tempos5 = tempos - 5
+medianaTempos5 = apply(tempos5, MARGIN = 1, FUN = median)
+hist(mediana_tempos, ylim = c(0,20), xlab = "Tempo", ylab = "Distribuição", col = "lightyellow")
+hist(medianaTempos5, ylim = c(0,20), xlab = "Tempo Novo", ylab = "Distribuição", col = "lightpink")
+```
