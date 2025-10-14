@@ -33,18 +33,18 @@ ic = function(n = 60){
 
 ??rep
 
-Amostra_média = rep(NA, 50)
+Amostra_media = rep(NA, 50)
 Amostra_desvio = rep(NA, 50)
 n = 60
 for(i in 1:50){ # "for" é um loop; de "i" variando de 1 a 50
   amostra = sample(area_pop, n)
-  Amostra_média[i] = mean(amostra)  # O "[i]" é a posição
+  Amostra_media[i] = mean(amostra)  # O "[i]" é a posição
   Amostra_desvio[i] = sd(amostra)
 }
-Amostra_média - 1.96 * Amostra_desvio / sqrt(n)
-Amostra_média + 1.96 * Amostra_desvio / sqrt(n)
+Amostra_media - 1.96 * Amostra_desvio / sqrt(n)
+Amostra_media + 1.96 * Amostra_desvio / sqrt(n)
 
 
-plot_ci(Amostra_média - 1.96 * Amostra_desvio / sqrt(n), Amostra_média + 1.96 * Amostra_desvio / sqrt(n), mean(area_pop))
+plot_ci(Amostra_media - 1.96 * Amostra_desvio / sqrt(n), Amostra_media + 1.96 * Amostra_desvio / sqrt(n), mean(area_pop))
 
-plot_ci(Amostra_média - 1.64 * Amostra_desvio / sqrt(n), Amostra_média + 1.64 * Amostra_desvio / sqrt(n), mean(area_pop))
+plot_ci(Amostra_media - 1.64 * Amostra_desvio / sqrt(n), Amostra_media + 1.64 * Amostra_desvio / sqrt(n), mean(area_pop))
