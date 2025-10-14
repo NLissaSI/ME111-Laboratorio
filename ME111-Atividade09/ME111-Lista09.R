@@ -31,7 +31,6 @@ ic = function(n = 60){
   return(ic)
 }
 
-??rep
 
 Amostra_media = rep(NA, 50)
 Amostra_desvio = rep(NA, 50)
